@@ -204,16 +204,20 @@ func (n *node) search(key string) []string {
 		n = n.children[r]
 	}
 
+    if n.eow {
+		return append(n.traverse(key), key)
+	}
+
 	return n.traverse(key)
 }
 
 func (n *node) traverse(prefix string) (results []string) {
 	for key, node := range n.children {
 		if node.eow {
-			results = append(results, prefix+key)
+			results = append(results, prefix+string(key))
 		}
 
-		results = append(results, node.traverse(prefix+key)...)
+		results = append(results, node.traverse(prefix+string(key))...)
 	}
 
 	return results
