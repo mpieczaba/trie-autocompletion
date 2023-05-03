@@ -1,15 +1,22 @@
 import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
+import styled from "styled-components";
+
+import { Input } from "./components/Input";
+
+const StyledApp = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  align-items: center;
+  background-color: #212121;
+`;
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Trie Autocompletion React Demo</p>
-      </header>
-    </div>
+    <StyledApp>
+      <Input />
+    </StyledApp>
   );
 }
 
