@@ -8,24 +8,8 @@ import (
 	"golang.org/x/term"
 )
 
-// Set terminal into raw mode
-func setupTerminal(root *node) {
-	state, err := term.MakeRaw(0)
-	if err != nil {
-		panic(err)
-	}
-	defer func() {
-		if err := term.Restore(0, state); err != nil {
-			panic(err)
-		}
-	}()
-
-}
-
-func main() {
-	root := newNode()
-
-	setupTerminal(root)
+// Handle user input
+func handleInput(root *node) {
 
 	var word string
 	in := bufio.NewReader(os.Stdin)
@@ -59,4 +43,21 @@ loop:
 			fmt.Printf("\x1b[2K\r%s\n\x1b[2K\r%v\x1b[1A\x1b[%dG", word, root.search(word), len(word)+1)
 		}
 	}
+}
+
+func main() {
+	root := newNode()
+
+	// Set terminal into raw mode
+	state, err := term.MakeRaw(0)
+	if err != nil {
+		panic(err)
+	}
+	defer func() {
+		if err := term.Restore(0, state); err != nil {
+			panic(err)
+		}
+	}()
+
+	handleInput(root)
 }
